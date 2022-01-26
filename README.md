@@ -9,9 +9,9 @@ poetry install --no-dev
 Then you are ready to go.
 
 ```bash
-$ poetry run python3 main.py --help
+$ poetry run calibre-rename --help
 
-Usage: main.py [OPTIONS] [PATHS]...
+Usage: calibre-rename [OPTIONS] [PATHS]...
 
 Options:
   -p, --author-prefix TEXT  Prefix for author(s). Default: " - ".
