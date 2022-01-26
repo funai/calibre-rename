@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "calibre-rename"
+version = "0.1.0"
+description = ""
+authors = ["Jun FUNAI <2344609+funai@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+click = "^8.0.3"
+ebookatty = "^0.1.0-alpha.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+calibre-rename = "calibre_rename.main:main"
