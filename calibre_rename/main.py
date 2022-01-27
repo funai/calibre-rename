@@ -38,14 +38,15 @@ def main(paths, prefix, epub, kepub, zipfile, opf, getcover):
 				author.append(x.strip())
 		meta['Author(s)'] = ', '.join(author)
 		title = (sanitize(meta['Title']))
-		author = sanitize(meta['Author(s)'], nobracket=True).title()
+		authors = sanitize(meta['Author(s)'], nobracket=True).title()
+		authors = shorten_to_bytes_width(authors, 90)
 		asin = meta['asin'][0]
 		# ext4 allows max 255bytes for filename.
-		suffix_bytes = len(('.' + asin + prefix + author + '.kepub.epub').encode()) + 21 # to prevent OSError in Kepubify.
+		suffix_bytes = len(('.' + asin + prefix + authors + '.kepub.epub').encode()) + 21 # to prevent OSError in Kepubify.
 		_MAX_WIDTH = 255
 		byte_width = _MAX_WIDTH - suffix_bytes
 		title = shorten_to_bytes_width(title, byte_width)
-		newname = title + '.' + asin + prefix + author
+		newname = title + '.' + asin + prefix + authors
 		print('# ' + newname)
 		path, filename = os.path.split(os.path.abspath(infile))
 		# removesuffix @Python ^3.9
