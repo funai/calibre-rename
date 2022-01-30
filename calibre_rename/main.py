@@ -29,14 +29,18 @@ def main(paths, prefix, epub, kepub, zipfile, opf, getcover):
 		meta = get_metadata(infile)
 		meta['Title'] = meta['updatedtitle'][0]
 		author = []
-		for x in meta['author']:
-			x = x.strip()
-			if re.match(r'^\w+,\s*\w+', x):
-				last, first = x.split(',', 1)
-				author.append(' '.join([first.strip(), last.strip()]))
-			else:
-				author.append(x.strip())
-		meta['Author(s)'] = ', '.join(author)
+		try:
+			for x in meta['author']:
+				x = x.strip()
+				if re.match(r'^\w+,\s*\w+', x):
+					last, first = x.split(',', 1)
+					author.append(' '.join([first.strip(), last.strip()]))
+				else:
+					author.append(x.strip())
+			meta['Author(s)'] = ', '.join(author)
+		except KeyError as e:
+			print('use Publisher as Author.')
+			meta['Author(s)'] = ', '.join(meta['publisher'])
 		title = (sanitize(meta['Title']))
 		authors = sanitize(meta['Author(s)'], nobracket=True).title()
 		authors = shorten_to_bytes_width(authors, 90)
