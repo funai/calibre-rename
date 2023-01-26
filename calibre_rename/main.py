@@ -108,7 +108,8 @@ def get_cover(dirname, newname, asin):
 		os.rename(cover_jpg, new_path)
 	else:
 		print('Fetching book cover...')
-		img_url = 'http://images-jp.amazon.com/images/P/' + asin + '.09.LZZZZZZZ.jpg'
+		img_url = 'https://images-na.ssl-images-amazon.com/images/P/' + asin + '.09.LZZZZZZZ.jpg'
+		print('{}'.format(img_url))
 		with urllib.request.urlopen(img_url) as response:
 			with open((new_path), 'wb') as fp:
 				shutil.copyfileobj(response, fp)
