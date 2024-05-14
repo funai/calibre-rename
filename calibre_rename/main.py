@@ -126,13 +126,20 @@ def get_cover(dirname, newname, asin):
     else:
         print("Fetching book cover...")
         # High-Res image URL, cf. https://github.com/lbschenkel/calibre-amazon-hires-covers
-        img_url = (
-            "https://ec2.images-amazon.com/images/P/" + asin + ".01.MAIN._SCRM_.jpg"
-        )
-        print("{}".format(img_url))
-        with urllib.request.urlopen(img_url) as response:
-            with open((new_path), "wb") as fp:
-                shutil.copyfileobj(response, fp)
+        urls = [
+            "https://ec2.images-amazon.com/images/P/{0}.01.MAIN._SCRM_.jpg",
+            "https://m.media-amazon.com/images/P/{0}.01.MAIN._SCRM_.jpg",
+            "https://images-na.ssl-images-amazon.com/images/P/{0}.09.LZZZZZZZ.jpg",
+        ]
+        minimum_file_size = 1024 * 30  # 30 KB
+        for url in urls:
+            img_url = url.format(asin)
+            print("  {}".format(img_url))
+            with urllib.request.urlopen(img_url) as response:
+                with open((new_path), "wb") as fp:
+                    shutil.copyfileobj(response, fp)
+            if os.path.getsize(new_path) > minimum_file_size:
+                break
     # print('' + newname + '.jpg')
     print("done.")
 
