@@ -125,10 +125,9 @@ def get_cover(dirname, newname, asin):
         os.rename(cover_jpg, new_path)
     else:
         print("Fetching book cover...")
+        # High-Res image URL, cf. https://github.com/lbschenkel/calibre-amazon-hires-covers
         img_url = (
-            "https://images-na.ssl-images-amazon.com/images/P/"
-            + asin
-            + ".09.LZZZZZZZ.jpg"
+            "https://ec2.images-amazon.com/images/P/" + asin + ".01.MAIN._SCRM_.jpg"
         )
         print("{}".format(img_url))
         with urllib.request.urlopen(img_url) as response:
